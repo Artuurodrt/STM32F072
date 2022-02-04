@@ -23,7 +23,7 @@ int main()
 {
 /*Initialize the clock for the GPIO Port A*/
 	RCC->AHBENR |= (1 << 17);
-	GPIOA->MODER = (1 << 10);
+	GPIOA->MODER |= (1 << 10);
 	GPIOA->OSPEEDR|=(3 << 10);
 	GPIOA->OTYPER &= ~(1<<5);
 	GPIOA->PUPDR &= ~((1<<10) | (1<<11));
