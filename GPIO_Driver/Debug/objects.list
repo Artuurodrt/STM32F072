@@ -1,0 +1,3 @@
+"./Src/_HAL_GPIO.o"
+"./Src/main.o"
+"./Startup/startup_stm32f072rbtx.o"
