@@ -10,6 +10,10 @@
 #include "stm32f072xb.h"
 
 
+/*Bit Position for Registers*/
+#define POS_BIT1 (PINPOS_32[pinNumber])
+#define POS_BIT2 (PINPOS_32[pinNumber]+1)
+
 /*Port Names*/
 #define PORTA GPIOA
 #define PORTB GPIOB
@@ -68,7 +72,11 @@ typedef struct{
 }GPIO_TYPE;
 
 
-static void config_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinMode);
+static void config_GPIO_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinMode);
+
+static void config_GPIO_OType(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t outType ,uint32_t pinMode);
+
+static void config_GPIO_Speed(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pinSpeed ,uint32_t pinMode);
 
 
 #endif /* _HAL_GPIO */
