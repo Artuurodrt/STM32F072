@@ -14,9 +14,6 @@
 #define POS32_BIT1 (PINPOS_32[pinNumber])
 #define POS32_BIT2 (PINPOS_32[pinNumber]+1)
 
-/*Bit Position for 16 bit Registers*/
-#define POS_BIT (PINPOS[pinNumber])
-
 
 /*Port Names*/
 #define PORTA GPIOA
@@ -85,5 +82,7 @@ static void config_GPIO_Speed(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pi
 
 static void config_GPIO_PUPD(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pinPUPD);
 
+void GPIO_Write(GPIO_TypeDef *gpio, uint32_t pinNumber,uint8_t state);
 
+void GPIO_Toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 #endif /* _HAL_GPIO */

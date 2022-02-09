@@ -37,9 +37,8 @@ int main()
 
 while(1){
 
-	for(int i=0;i<1000000;i++);
-		GPIOA->BSRR = (1 << 5);
-	for(int i=0;i<1000000;i++);
-		GPIOA->BSRR = (1 << 21);
+	GPIO_Toggle(myGPIO.port, 5);
+	for(int i=0;i<100000;i++);
+
 	}
 }

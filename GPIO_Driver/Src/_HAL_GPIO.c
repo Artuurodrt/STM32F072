@@ -27,24 +27,6 @@ uint32_t PINPOS_32[16] = {
 (0x1E)
 };
 
-uint32_t PINPOS[16] = {
-(0x00),
-(0x01),
-(0x02),
-(0x03),
-(0x04),
-(0x05),
-(0x06),
-(0x07),
-(0x08),
-(0x09),
-(0x0A),
-(0x0B),
-(0x0C),
-(0x0D),
-(0x0E),
-(0x0F)
-};
 
 void GPIO_Init(GPIO_TYPE gpio_Type){
 
@@ -124,10 +106,10 @@ static void config_GPIO_OType(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t ou
 	if(pinNumber <= 15){
 		switch(outType){
 		case OUTPUT_PUSH_PULL:
-			gpio->OTYPER &= ~(1 << POS_BIT);
+			gpio->OTYPER &= ~(1 << pinNumber);
 			break;
 		case OUTPUT_PULL_DRAIN:
-			gpio->OTYPER |= (1 << POS_BIT);
+			gpio->OTYPER |= (1 << pinNumber);
 			break;
 		default:
 			break;
@@ -159,4 +141,19 @@ static void config_GPIO_PUPD(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pin
 	}
 }
 
+void GPIO_Write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint8_t state){
 
+	if(state){
+		gpio->BSRR = (1 << pinNumber);
+	}
+	else{
+		gpio->BSRR = (1 << (pinNumber + 16));
+	}
+}
+
+
+void GPIO_Toggle(GPIO_TypeDef *gpio, uint32_t pinNumber){
+
+	gpio->ODR ^= (1 << pinNumber);
+
+}
