@@ -18,15 +18,22 @@
 
 #include <stdint.h>
 #include "stm32f072xb.h"
+#include "_HAL_GPIO.h"
 
 int main()
 {
-/*Initialize the clock for the GPIO Port A*/
-	RCC->AHBENR |= (1 << 17);
-	GPIOA->MODER |= (1 << 10);
-	GPIOA->OSPEEDR|=(3 << 10);
-	GPIOA->OTYPER &= ~(1<<5);
-	GPIOA->PUPDR &= ~((1<<10) | (1<<11));
+
+	GPIO_TYPE myGPIO;
+	myGPIO.port = PORTA;
+	myGPIO.pin = 5;
+	myGPIO.mode = GEN_PURPOSE_OUT_MODE;
+	myGPIO.speed = HIGH_SPEED;
+	myGPIO.otype = OUTPUT_PUSH_PULL;
+	myGPIO.pull = NO_PU_PD;
+
+	/*Initialize GPIO Port A*/
+	GPIO_Init(myGPIO);
+
 
 while(1){
 

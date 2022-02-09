@@ -10,9 +10,13 @@
 #include "stm32f072xb.h"
 
 
-/*Bit Position for Registers*/
-#define POS_BIT1 (PINPOS_32[pinNumber])
-#define POS_BIT2 (PINPOS_32[pinNumber]+1)
+/*Bit Position for 32 bit Registers*/
+#define POS32_BIT1 (PINPOS_32[pinNumber])
+#define POS32_BIT2 (PINPOS_32[pinNumber]+1)
+
+/*Bit Position for 16 bit Registers*/
+#define POS_BIT (PINPOS[pinNumber])
+
 
 /*Port Names*/
 #define PORTA GPIOA
@@ -40,9 +44,9 @@
 
 /*GPIO port pull-up/pull-down register (GPIOx_PUPDR)*/
 #define NO_PU_PD		 ((uint32_t)0x00)
-#define PULL_UP			 ((uint32_t)0x00)
-#define PULL_DOWN		 ((uint32_t)0x00)
-#define RESERVED		 ((uint32_t)0x00)
+#define PULL_UP			 ((uint32_t)0x01)
+#define PULL_DOWN		 ((uint32_t)0x02)
+#define RESERVED		 ((uint32_t)0x03)
 
 /*Clock Enabling*/
 #define GPIO_CLK_ENABLE_GPIOA		 (RCC->AHBENR |= (1 << 17))
@@ -61,7 +65,7 @@ typedef struct{
 
 	uint32_t mode;
 
-	uint32_t mode_type;
+	uint32_t otype;
 
 	uint32_t pull;
 
@@ -71,12 +75,15 @@ typedef struct{
 
 }GPIO_TYPE;
 
+void GPIO_Init(GPIO_TYPE gpio_Type);
 
-static void config_GPIO_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinMode);
+static void config_GPIO_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode);
 
-static void config_GPIO_OType(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t outType ,uint32_t pinMode);
+static void config_GPIO_OType(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t outType);
 
-static void config_GPIO_Speed(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pinSpeed ,uint32_t pinMode);
+static void config_GPIO_Speed(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pinSpeed);
+
+static void config_GPIO_PUPD(GPIO_TypeDef *gpio, uint32_t pinNumber,uint32_t pinPUPD);
 
 
 #endif /* _HAL_GPIO */
