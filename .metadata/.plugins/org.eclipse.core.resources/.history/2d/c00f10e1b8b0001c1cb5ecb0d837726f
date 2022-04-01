@@ -27,19 +27,11 @@ void console_Init(void){
 	USART2->CR2 = 0x00000000;
 	USART2->CR3 = 0x00000000;
 
-	// PCLK -> 12 MHz
+
 	RCC->CFGR3 &= ~RCC_CFGR3_USART2SW_Msk;	/* PCLK (APB1) is selected as clock source, PCLK -> 48 MHz */
 
-	/* Baud Rate = 115200
-	 With OVER8=0 and Fck=12MHz, USARTDIV =   12E6/115200 = 416.6666
-	 BRR = 417 -> Baud Rate = 115107.9137 -> 0.08% error
-
-	 With OVER8=1 and Fck=12MHz, USARTDIV = 2*12E6/115200 = 208.3333
-	 BRR = 833 -> Baud Rate = 115246.0984 -> 0.04% error (better)*/
-
-
 	USART2->CR1 |= USART_CR1_OVER8;
-	USART2->BRR = 208;
+	USART2->BRR = 833;
 
 	USART2->CR1 |= USART_CR1_TE | USART_CR1_RE;	/* Enable both Transmitter and Receiver */
 

@@ -61,9 +61,9 @@ void SystemClock_Config()
 	RCC->CFGR &= ~RCC_CFGR_HPRE_Msk;
 	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;
 
-	//Set APB1 prescaler to /4
+	//Set APB1 prescaler to /1
 	RCC->CFGR &= ~RCC_CFGR_PPRE_Msk;
-	RCC->CFGR |= RCC_CFGR_PPRE_DIV4;// PCLK (APB1) -> 48 MHz
+	RCC->CFGR |= RCC_CFGR_PPRE_DIV1;
 
 	// Enable FLASH Prefetch Buffer and set Flash Latency
 	FLASH->ACR = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY;
